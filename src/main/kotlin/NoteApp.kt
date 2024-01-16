@@ -27,15 +27,20 @@ class NoteApp {
     private fun selectArchive() {
         println("Выберите архив:")
 
-        for ((index, archive) in archives.withIndex()){
-            println("${index+1}. ${archive.name}")
+        for ((index, archive) in archives.withIndex()) {
+            println("${index + 1}. ${archive.name}")
         }
-        val archiveIndex = scanner.nextInt() - 1
+        if (scanner.hasNextInt()) {
+            val archiveIndex = scanner.nextInt() - 1
 
-        if (archiveIndex in 0 until archives.size) {
-            archives[archiveIndex].startMenu()
+            if (archiveIndex in 0 until archives.size) {
+                archives[archiveIndex].startMenu()
+            } else {
+                println("Неверный ввод. Пожалуйста, выбирите архив из существующих")
+            }
         } else {
-            println("Неверный ввод. Пожалуйста, выбирите архив из существующих")
+            println("Неверный ввод. Пожалуйста введите целое число из предлагаемых опций")
+            scanner.next()
         }
     }
 

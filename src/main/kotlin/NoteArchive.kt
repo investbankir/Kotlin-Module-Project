@@ -23,27 +23,34 @@ if (scanner.hasNextInt()) {
 }
             }
         }
-    private fun selectNotes(){
+    private fun selectNotes() {
         println("Выберите заметку:")
 
-        for ((index, note) in notes.withIndex()){
+        for ((index, note) in notes.withIndex()) {
             println("${index + 1}. ${note.title}")
         }
-        val noteIndex = scanner.nextInt() - 1
-        if (noteIndex in 0 until notes.size) {
-            notes[noteIndex].display()
+        if (scanner.hasNextInt()) {
+            val noteIndex = scanner.nextInt() - 1
+            if (noteIndex in notes.indices) {
+                notes[noteIndex].display()
+            } else {
+                println("Неверный ввод. Пожалуйста, выбирите среди существующих заметок")
+            }
         } else {
-            println("Неверный ввод. Пожалуйста, выбирите среди существующих заметок")
+            println("Неверный ввод. Пожалуйста введите целое число из предлагаемых опций")
+            scanner.next()
         }
     }
+
+
     private fun createNotes() {
         val scanner = Scanner(System.`in`)
         println("Введите название для новой заметки:")
-        val noteTitle = scanner.next()
+        val noteTitle = scanner.nextLine().trim()
 
         if (noteTitle.isNotEmpty()) {
             println("Введите текст новой заметки")
-            val noteText = scanner.next()
+            val noteText = scanner.nextLine().trim()
 
             if (noteText.isNotEmpty()) {
                 val newNote = Note(noteTitle, noteText)
